@@ -30,16 +30,16 @@ export default function Admin() {
   useEffect(() => {
     if (tab === 'Students') {
       setLoading(true);
-      api.get('/students/').then(({ data }) => setStudents(data.results || data)).finally(() => setLoading(false));
+      api.get('students/').then(({ data }) => setStudents(data.results || data)).finally(() => setLoading(false));
     } else if (tab === 'Visitors') {
       setLoading(true);
-      api.get('/visitors/').then(({ data }) => setVisitors(data.results || data)).finally(() => setLoading(false));
+      api.get('visitors/').then(({ data }) => setVisitors(data.results || data)).finally(() => setLoading(false));
     } else if (tab === 'Audit logs') {
       setLoading(true);
-      api.get('/audit-logs/').then(({ data }) => setAuditLogs(data.results || data)).finally(() => setLoading(false));
+      api.get('audit-logs/').then(({ data }) => setAuditLogs(data.results || data)).finally(() => setLoading(false));
     } else if (tab === 'Users') {
       setLoading(true);
-      api.get('/users/').then(({ data }) => setUsers(data.results || data)).finally(() => setLoading(false));
+      api.get('users/').then(({ data }) => setUsers(data.results || data)).finally(() => setLoading(false));
     }
   }, [tab]);
 
@@ -47,13 +47,13 @@ export default function Admin() {
     setLoading(true);
     setReport(null);
     if (reportType === 'daily') {
-      api.get('/reports/', { params: { report: 'daily', date: reportDate } })
+      api.get('reports/', { params: { report: 'daily', date: reportDate } })
         .then(({ data }) => setReport(data)).finally(() => setLoading(false));
     } else if (reportType === 'term') {
-      api.get('/reports/', { params: { report: 'term', start: reportStart, end: reportEnd } })
+      api.get('reports/', { params: { report: 'term', start: reportStart, end: reportEnd } })
         .then(({ data }) => setReport(data)).finally(() => setLoading(false));
     } else {
-      api.get('/reports/', { params: { report: 'most_visited', start: reportStart, end: reportEnd } })
+      api.get('reports/', { params: { report: 'most_visited', start: reportStart, end: reportEnd } })
         .then(({ data }) => setReport(data)).finally(() => setLoading(false));
     }
   };
@@ -62,7 +62,7 @@ export default function Admin() {
     const params = {};
     if (reportStart) params.start = reportStart;
     if (reportEnd) params.end = reportEnd;
-    api.get('/reports/export/', { params, responseType: 'blob' }).then(({ data }) => {
+    api.get('reports/export/', { params, responseType: 'blob' }).then(({ data }) => {
       const url = URL.createObjectURL(data);
       const a = document.createElement('a');
       a.href = url;
@@ -80,7 +80,7 @@ export default function Admin() {
     const form = new FormData();
     form.append('file', file);
     setLoading(true);
-    api.post('/students/bulk_upload/', form, { headers: { 'Content-Type': 'multipart/form-data' } })
+    api.post('students/bulk_upload/', form, { headers: { 'Content-Type': 'multipart/form-data' } })
       .then(({ data }) => { setBulkResult(data); setFile(null); setMessage('Upload complete.'); })
       .catch((err) => setMessage(err.response?.data?.detail || 'Upload failed'))
       .finally(() => setLoading(false));
@@ -92,14 +92,14 @@ export default function Admin() {
     const payload = { student_id: form.student_id.value, full_name: form.full_name.value, class_level: form.class_level.value, enrollment_status: form.enrollment_status.value };
     try {
       if (editingStudent) {
-        await api.patch(`/students/${editingStudent.id}/`, payload);
+        api.patch(`students/${editingStudent.id}/`, payload);
         setMessage('Student updated.');
       } else {
-        await api.post('/students/', payload);
+        await api.post('students/', payload);
         setMessage('Student created.');
       }
       setEditingStudent(null);
-      api.get('/students/').then(({ data }) => setStudents(data.results || data));
+      api.get('students/').then(({ data }) => setStudents(data.results || data));
     } catch (err) {
       setMessage(JSON.stringify(err.response?.data || err.message));
     }
@@ -111,14 +111,14 @@ export default function Admin() {
     const payload = { full_name: form.full_name.value, phone: form.phone.value, national_id: form.national_id?.value || '' };
     try {
       if (editingVisitor) {
-        await api.patch(`/visitors/${editingVisitor.id}/`, payload);
+        api.patch(`visitors/${editingVisitor.id}/`, payload);
         setMessage('Visitor updated.');
       } else {
-        await api.post('/visitors/', payload);
+        await api.post('visitors/', payload);
         setMessage('Visitor created.');
       }
       setEditingVisitor(null);
-      api.get('/visitors/').then(({ data }) => setVisitors(data.results || data));
+      api.get('visitors/').then(({ data }) => setVisitors(data.results || data));
     } catch (err) {
       setMessage(JSON.stringify(err.response?.data || err.message));
     }
@@ -126,9 +126,9 @@ export default function Admin() {
 
   const toggleUserActive = async (user) => {
     try {
-      await api.patch(`/users/${user.id}/`, { is_active: !user.is_active });
+      await api.patch(`users/${user.id}/`, { is_active: !user.is_active });
       setMessage(user.is_active ? 'User deactivated.' : 'User activated.');
-      api.get('/users/').then(({ data }) => setUsers(data.results || data));
+      api.get('users/').then(({ data }) => setUsers(data.results || data));
     } catch (err) {
       setMessage(err.response?.data?.detail || 'Failed');
     }

@@ -14,10 +14,10 @@ export default function Security() {
   const [message, setMessage] = useState('');
 
   const loadCheckedIn = () => {
-    api.get('/visit-records/currently_checked_in/').then(({ data }) => setCheckedIn(data)).catch(() => setCheckedIn([]));
+    api.get('visit-records/currently_checked_in/').then(({ data }) => setCheckedIn(data)).catch(() => setCheckedIn([]));
   };
   const loadOverstayed = () => {
-    api.get('/visit-records/overstayed/', { params: { hours: 2 } }).then(({ data }) => setOverstayed(data)).catch(() => setOverstayed([]));
+    api.get('visit-records/overstayed/', { params: { hours: 2 } }).then(({ data }) => setOverstayed(data)).catch(() => setOverstayed([]));
   };
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function Security() {
   const handleCheckOut = async (id) => {
     setMessage('');
     try {
-      await api.patch(`/visit-records/${id}/check_out/`);
+      await api.patch(`visit-records/${id}/check_out/`);
       setMessage('Checked out.');
       loadCheckedIn();
       loadOverstayed();

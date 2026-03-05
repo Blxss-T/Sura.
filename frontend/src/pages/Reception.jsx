@@ -26,7 +26,7 @@ export default function Reception() {
   const loadCheckedInToday = useCallback(async (studentId) => {
     if (!studentId) return;
     try {
-      const { data } = await api.get('/visit-records/', { params: { student: studentId } });
+      const { data } = await api.get('visit-records/', { params: { student: studentId } });
       const list = data.results || data;
       setCheckedInToday(list.filter((r) => !r.check_out_time));
     } catch {
@@ -39,7 +39,7 @@ export default function Reception() {
     setLoading(true);
     setMessage('');
     try {
-      const { data } = await api.get('/students/', { params: { search: search.trim() } });
+      const { data } = await api.get('students/', { params: { search: search.trim() } });
       setStudents(data.results || data);
       setSelectedStudent(null);
       setVisitors([]);
@@ -52,7 +52,7 @@ export default function Reception() {
 
   const loadVisitors = useCallback(async (studentId) => {
     try {
-      const { data } = await api.get(`/students/${studentId}/visitors/`);
+      const { data } = await api.get(`students/${studentId}/visitors/`);
       setVisitors(data);
     } catch {
       setVisitors([]);
@@ -70,7 +70,7 @@ export default function Reception() {
     if (!selectedStudent) return;
     setMessage('');
     try {
-      await api.post('/visit-records/', {
+      await api.post('visit-records/', {
         student: selectedStudent.id,
         visitor: visitorId,
         relationship_type: relationshipType,
@@ -86,12 +86,12 @@ export default function Reception() {
     if (!selectedStudent || !newVisitor.full_name.trim()) return;
     setMessage('');
     try {
-      const { data: visitor } = await api.post('/visitors/', {
+      const { data: visitor } = await api.post('visitors/', {
         full_name: newVisitor.full_name.trim(),
         national_id: newVisitor.national_id || undefined,
         phone: newVisitor.phone || undefined,
       });
-      await api.post('/student-visitor-relationships/', {
+      await api.post('student-visitor-relationships/', {
         student: selectedStudent.id,
         visitor_id: visitor.id,
         relationship_type: linkRelationship,
@@ -108,7 +108,7 @@ export default function Reception() {
   const handleCheckOut = async (recordId) => {
     setCheckingOutId(recordId);
     try {
-      await api.patch(`/visit-records/${recordId}/check_out/`);
+      await api.patch(`visit-records/${recordId}/check_out/`);
       setMessage('Checked out.');
       if (selectedStudent) {
         loadVisitors(selectedStudent.id);
