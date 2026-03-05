@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
       return;
     }
     try {
-      const { data } = await api.get('/auth/me/');
+      const { data } = await api.get('auth/me/');
       setUser(data);
     } catch {
       localStorage.removeItem('access_token');
@@ -31,7 +31,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (username, password) => {
-    const { data } = await api.post('/auth/login/', { username, password });
+    const { data } = await api.post('auth/login/', { username, password });
     localStorage.setItem('access_token', data.access);
     localStorage.setItem('refresh_token', data.refresh);
     setUser(data.user);
