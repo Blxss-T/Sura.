@@ -4,7 +4,7 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 from rest_framework.parsers import MultiPartParser
 from django_filters.rest_framework import DjangoFilterBackend
-from django_filters import FilterSet, CharFilter
+from django_filters import FilterSet, CharFilter, NumberFilter
 from django.db.models import Q, Count
 from django.http import HttpResponse
 import csv
@@ -155,6 +155,11 @@ class StudentVisitorRelationshipViewSet(viewsets.ModelViewSet):
 
 
 # ---------- VisitRecord ----------
+class VisitRecordFilter(FilterSet):
+    student = NumberFilter(field_name='student_id')
+    visitor = NumberFilter(field_name='visitor_id')
+
+
 class VisitRecordViewSet(viewsets.ModelViewSet):
     def get_permissions(self):
         if self.action in ('currently_checked_in', 'overstayed', 'check_out'):
@@ -173,6 +178,9 @@ class VisitRecordViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         qs = VisitRecord.objects.select_related('student', 'visitor', 'receptionist')
         return qs
+
+    filter_backends = [DjangoFilterBackend]
+    filterset_class = VisitRecordFilter
 
     def create(self, request, *args, **kwargs):
         serializer = VisitRecordCreateSerializer(data=request.data, context={'request': request})
