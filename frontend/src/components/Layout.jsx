@@ -12,25 +12,28 @@ export default function Layout({ children }) {
 
   return (
     <div className="layout">
-      <header className="header">
-        <h1 className="logo">sura<span className="dot">.</span></h1>
-        <nav className="nav">
+      <aside className="sidebar">
+        <div className="sidebar-brand">sura<span className="dot">.</span></div>
+        <nav className="sidebar-nav">
           {(user?.role === 'ADMIN' || user?.role === 'RECEPTIONIST') && (
-            <NavLink to="/reception" className={({ isActive }) => isActive ? 'active' : ''}>Reception</NavLink>
+            <NavLink to="/reception" className={({ isActive }) => isActive ? 'sidebar-nav-link active' : 'sidebar-nav-link'}>Reception</NavLink>
           )}
           {user?.role === 'ADMIN' && (
-            <NavLink to="/admin" className={({ isActive }) => isActive ? 'active' : ''}>Admin</NavLink>
+            <NavLink to="/admin" className={({ isActive }) => isActive ? 'sidebar-nav-link active' : 'sidebar-nav-link'}>Admin</NavLink>
           )}
           {(user?.role === 'ADMIN' || user?.role === 'SECURITY') && (
-            <NavLink to="/security" className={({ isActive }) => isActive ? 'active' : ''}>Security</NavLink>
+            <NavLink to="/security" className={({ isActive }) => isActive ? 'sidebar-nav-link active' : 'sidebar-nav-link'}>Security</NavLink>
           )}
         </nav>
-        <div className="user-bar">
-          <span>{user?.username} ({user?.role_display})</span>
-          <button type="button" onClick={handleLogout}>Logout</button>
+        <div className="sidebar-footer">
+          <div className="user-info">
+            <div className="username">{user?.username}</div>
+            <div className="role">{user?.role_display}</div>
+          </div>
+          <button type="button" className="logout-btn" onClick={handleLogout}>Logout</button>
         </div>
-      </header>
-      <main className="main">
+      </aside>
+      <main className="main-content">
         {children || <Outlet />}
       </main>
     </div>
