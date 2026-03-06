@@ -27,30 +27,29 @@ export default function Login() {
     <div className="login-page">
       <div className="login-shell">
         <section className="login-card login-card-form">
-          <div className="login-brand">SVMS</div>
-          <h1>Welcome home</h1>
-          <p className="login-subtitle">Please enter your details.</p>
+          <div className="login-brand">Razor</div>
+          <h1>Agent Login</h1>
+          <p className="login-subtitle">Hey, Enter your details to get sign in to your account</p>
 
           <form className="login-form" onSubmit={handleSubmit}>
             {error && <div className="error">{error}</div>}
 
             <label className="login-field">
-              <span>Username</span>
+              <span>Enter Email / Phone No</span>
               <div className="login-input-wrap">
                 <input
                   type="text"
-                  placeholder="Enter username"
+                  placeholder="Enter Email / Phone No"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   autoComplete="username"
                   required
                 />
-                <span className="login-input-icon">U</span>
               </div>
             </label>
 
             <label className="login-field">
-              <span>Password</span>
+              <span>Passcode</span>
               <div className="login-input-wrap">
                 <input
                   type="password"
@@ -60,33 +59,33 @@ export default function Login() {
                   autoComplete="current-password"
                   required
                 />
-                <span className="login-input-icon">O</span>
+                <span className="login-input-icon" style={{cursor: 'pointer'}}>👁</span>
               </div>
             </label>
 
             <div className="login-meta">
-              <label className="login-checkbox">
-                <input type="checkbox" defaultChecked />
-                <span>Remember for 30 days</span>
-              </label>
               <button type="button" className="login-link">
-                Forgot password?
+                Having trouble in sign in?
               </button>
             </div>
 
             <button className="login-submit" type="submit">
-              Login
+              Sign in
             </button>
           </form>
 
           <div className="login-divider">
-            <span>or</span>
+            <span>Or sign in with</span>
           </div>
 
           <div className="login-socials" aria-hidden="true">
-            <button type="button" className="login-social">A</button>
-            <button type="button" className="login-social">G</button>
-            <button type="button" className="login-social">F</button>
+            <button type="button" className="login-social">Google</button>
+            <button type="button" className="login-social">Apple ID</button>
+            <button type="button" className="login-social">Facebook</button>
+          </div>
+
+          <div className="login-footer">
+            Don't have an account? <a href="#signup">Request Now</a>
           </div>
         </section>
 
