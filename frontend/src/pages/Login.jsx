@@ -27,19 +27,19 @@ export default function Login() {
     <div className="login-page">
       <div className="login-shell">
         <section className="login-card login-card-form">
-          <div className="login-brand">Razor</div>
-          <h1>Agent Login</h1>
-          <p className="login-subtitle">Hey, Enter your details to get sign in to your account</p>
+          <div className="login-brand">sura<span className="dot">.</span></div>
+          <h1>Welcome Back</h1>
+          <p className="login-subtitle">Sign in to your account to continue</p>
 
           <form className="login-form" onSubmit={handleSubmit}>
             {error && <div className="error">{error}</div>}
 
             <label className="login-field">
-              <span>Enter Email / Phone No</span>
+              <span>Username</span>
               <div className="login-input-wrap">
                 <input
                   type="text"
-                  placeholder="Enter Email / Phone No"
+                  placeholder="Enter your username"
                   value={username}
                   onChange={(e) => setUsername(e.target.value)}
                   autoComplete="username"
@@ -49,11 +49,11 @@ export default function Login() {
             </label>
 
             <label className="login-field">
-              <span>Passcode</span>
+              <span>Password</span>
               <div className="login-input-wrap">
                 <input
                   type="password"
-                  placeholder="Enter password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   autoComplete="current-password"
@@ -65,7 +65,7 @@ export default function Login() {
 
             <div className="login-meta">
               <button type="button" className="login-link">
-                Having trouble in sign in?
+                Forgot password?
               </button>
             </div>
 
@@ -80,21 +80,18 @@ export default function Login() {
 
           <div className="login-socials" aria-hidden="true">
             <button type="button" className="login-social">Google</button>
-            <button type="button" className="login-social">Apple ID</button>
-            <button type="button" className="login-social">Facebook</button>
+            <button type="button" className="login-social">Apple</button>
+            <button type="button" className="login-social">Microsoft</button>
           </div>
 
           <div className="login-footer">
-            Don't have an account? <a href="#signup">Request Now</a>
+            Don't have an account? <a href="#signup">Contact Admin</a>
           </div>
         </section>
 
         <section className="login-card login-card-art" aria-hidden="true">
           <div className="login-art">
-            <div className="login-art-blob login-art-blob-top" />
-            <div className="login-art-blob login-art-blob-left" />
-            <div className="login-art-wave" />
-            <div className="login-art-glow" />
+            <div style={{color: '#fff', fontSize: '3rem', fontWeight: 'bold'}}>VM</div>
           </div>
         </section>
       </div>

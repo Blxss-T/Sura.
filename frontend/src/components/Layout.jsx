@@ -13,7 +13,7 @@ export default function Layout({ children }) {
   return (
     <div className="layout">
       <header className="header">
-        <h1 className="logo">Visitor Management</h1>
+        <h1 className="logo">sura<span className="dot">.</span></h1>
         <nav className="nav">
           {(user?.role === 'ADMIN' || user?.role === 'RECEPTIONIST') && (
             <NavLink to="/reception" className={({ isActive }) => isActive ? 'active' : ''}>Reception</NavLink>

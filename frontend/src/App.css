@@ -3,15 +3,17 @@ body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Sego
 .loading { padding: 2rem; text-align: center; }
 
 /* Login */
-.login-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 0; width: 100%; }
-.login-shell { display: flex; width: 100%; height: 100vh; gap: 0; align-items: center; }
-.login-card { background: #fff; padding: 3rem; border-radius: 0; box-shadow: 0 20px 25px rgba(0,0,0,0.1); width: 50%; height: 100vh; display: flex; flex-direction: column; justify-content: center; }
+.login-page { width: 100vw; height: 100vh; display: flex; align-items: center; justify-content: flex-start; background: linear-gradient(135deg, #f3f4f6 0%, #e5e7eb 100%); padding: 0; margin: 0; overflow: hidden; position: fixed; top: 0; left: 0; }
+.login-shell { display: flex; width: 100%; height: 100%; gap: 0; align-items: center; }
+.login-card { background: #fff; padding: 3rem; border-radius: 0; box-shadow: 0 20px 25px rgba(0,0,0,0.1); width: 50%; height: 100%; display: flex; flex-direction: column; justify-content: center; }
 .login-card-form { width: 100%; max-width: 100%; }
-.login-card-art { width: 50%; height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1f2937 0%, #374151 100%); }
-.login-brand { font-size: 2.5rem; font-weight: 700; color: #1f2937; margin-bottom: 1.5rem; letter-spacing: -0.5px; font-family: var(--font-primary); }
+.login-card-art { width: 50%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #1f2937 0%, #374151 100%); }
+.login-brand { font-size: 2.5rem; font-weight: 700; margin-bottom: 1.5rem; letter-spacing: -0.5px; font-family: var(--font-primary); background: linear-gradient(90deg, #3b82f6, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; position: relative; }
+.login-brand .dot { position: relative; top: -0.3em; font-size: 0.6em; }
 .login-card h1 { margin: 0 0 0.75rem; font-size: 2rem; color: #1f2937; font-weight: 700; font-family: var(--font-primary); }
 .login-card p { margin: 0 0 2rem; color: #6b7280; font-size: 1rem; line-height: 1.6; font-family: var(--font-primary); }
-.login-card input { width: 100%; padding: 0.75rem 1rem; margin-bottom: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-family: var(--font-primary); font-size: 0.95rem; transition: all 0.2s; background: #f9fafb; }
+.login-card input { width: 100%; padding: 0.75rem 1rem; margin-bottom: 0.75rem; border: 1px solid #d1d5db; border-radius: 8px; font-family: var(--font-primary); font-size: 0.95rem; transition: all 0.2s; background: #f9fafb; color: #1f2937; }
+.login-card input::placeholder { color: #9ca3af; }
 .login-card input:focus { outline: none; border-color: #3b82f6; background: #fff; box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1); }
 .login-card button { width: 100%; padding: 0.85rem; background: #3b82f6; color: #fff; border: none; border-radius: 8px; cursor: pointer; font-size: 1rem; font-weight: 600; font-family: var(--font-primary); transition: all 0.2s; }
 .login-card button:hover { background: #2563eb; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3); }
@@ -52,13 +54,13 @@ body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Sego
 @media (max-width: 1024px) {
   .login-card-art { display: none; }
   .login-card { width: 100%; }
-  .login-shell { padding: 2rem; }
 }
 
 @media (max-width: 768px) {
-  .login-shell { flex-direction: column; gap: 1.5rem; height: auto; }
+  .login-page { width: 100vw; height: auto; position: relative; }
+  .login-shell { flex-direction: column; gap: 0; height: auto; }
   .login-card-art { display: none; }
-  .login-card { width: 100%; height: auto; padding: 2rem; }
+  .login-card { width: 100%; height: auto; min-height: 100vh; padding: 2rem; }
   .login-brand { font-size: 1.75rem; }
   .login-card h1 { font-size: 1.5rem; }
 }
@@ -66,7 +68,8 @@ body { margin: 0; font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Sego
 /* Layout */
 .layout { min-height: 100vh; display: flex; flex-direction: column; }
 .header { background: #1f2937; color: #fff; padding: 1rem 2rem; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; font-family: var(--font-primary); box-shadow: 0 1px 3px rgba(0,0,0,0.1); }
-.logo { margin: 0; font-size: 1.5rem; font-weight: 700; font-family: var(--font-primary); }
+.logo { margin: 0; font-size: 1.5rem; font-weight: 700; font-family: var(--font-primary); background: linear-gradient(90deg, #3b82f6, #2563eb); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+.logo .dot { position: relative; top: -0.2em; font-size: 0.8em; }
 .nav { display: flex; gap: 1rem; }
 .nav a { color: #d1d5db; text-decoration: none; padding: 0.5rem 1rem; border-radius: 6px; font-family: var(--font-primary); font-weight: 500; transition: all 0.2s; }
 .nav a:hover, .nav a.active { color: #fff; background: rgba(59, 130, 246, 0.2); }
